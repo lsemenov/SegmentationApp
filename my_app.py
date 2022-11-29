@@ -18,7 +18,7 @@ UPLOAD_FOLDER = "F:/Project_py/seg_app/static/images"
 RELATIVE_FILE_PATH = "static/images"
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device = torch.device("cpu")
 
 
 # главная страница
