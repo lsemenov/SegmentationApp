@@ -1,0 +1,21 @@
+{%  extends 'base.html' %}
+{% block title %}show image{% endblock %}
+{% block head %}
+    {{ super() }}
+<style>
+</style>
+{% endblock %}
+{% block body %}
+    {{ super() }}
+    <div align="center">
+    <figure>
+        <img src="{{ name }}"
+            alt='Original Image'
+            width="500"
+            height="500">
+    </figure>
+        <form action="{{ url_for('segmentation') }}" method="POST">
+            <p><button type="submit">Сегментировать</button>
+        </form>
+    </div>
+{% endblock %}
