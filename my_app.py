@@ -20,7 +20,6 @@ ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 device = torch.device("cpu")
 
-
 # главная страница
 @app.route("/index")
 @app.route('/')
@@ -77,11 +76,11 @@ def segmentation():
     return render_template('segmentation.html', name=path)
 
 
-# запуск flask приложения
-if __name__ == '__main__':
-    # app.run(host, port, debug, options)
-    # запуск локального веб-сервера 127.0.0.1:5000
-    # доступ только с локальной машины
-    # host='0.0.0.0' - позволит принимать запросы с интерфейса, поделюченного к обшедоступной сети
-    # port=8080
-    app.run(debug=True)
+# # запуск flask приложения
+# if __name__ == '__main__':
+#     # app.run(host, port, debug, options)
+#     # запуск локального веб-сервера 127.0.0.1:5000
+#     # доступ только с локальной машины
+#     # host='0.0.0.0' - позволит принимать запросы с интерфейса, поделюченного к обшедоступной сети
+#     # port=8080
+#     app.run(debug=True)
