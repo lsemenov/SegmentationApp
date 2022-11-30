@@ -14,7 +14,7 @@ app = Flask(__name__)
 
 # ограничение объема файла в байтах
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
-UPLOAD_FOLDER = "F:/Project_py/seg_app/static/images"
+UPLOAD_FOLDER = "static/images/"
 RELATIVE_FILE_PATH = "static/images"
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
