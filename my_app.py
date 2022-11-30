@@ -1,11 +1,11 @@
 from flask import Flask, url_for, request, redirect, render_template
 from werkzeug.utils import secure_filename
 from Model import ApplanationSegmentation
-import matplotlib
+import matplotlib.image as mpimage
 import numpy as np
 from main import preprocess
-import cv2
 import torch
+from PIL import Image
 import os
 
 
@@ -54,8 +54,8 @@ def show(filename):
 def segmentation():
 
     filename = RELATIVE_FILE_PATH + '/' + "0.bmp"
-    data = cv2.imread(filename)
-    data = cv2.cvtColor(data, cv2.COLOR_BGR2GRAY)
+    data = Image.open(filename).convert("L")
+    data = np.array(data)
     standardized_scan = preprocess.standardize(preprocess.normalize(data))
 
     # # загрузка модели
@@ -72,15 +72,15 @@ def segmentation():
     img_test = np.array(pred)
     img_test = np.squeeze(img_test)
     path = os.path.join(app.config['UPLOAD_FOLDER'], "segment_" + "0.bmp")
-    matplotlib.image.imsave(path, img_test)
+    mpimage.imsave(path, img_test, cmap="Greys")
     return render_template('segmentation.html', name=path)
 
 
-# # запуск flask приложения
-# if __name__ == '__main__':
-#     # app.run(host, port, debug, options)
-#     # запуск локального веб-сервера 127.0.0.1:5000
-#     # доступ только с локальной машины
-#     # host='0.0.0.0' - позволит принимать запросы с интерфейса, поделюченного к обшедоступной сети
-#     # port=8080
-#     app.run(debug=True)
+# запуск flask приложения
+if __name__ == '__main__':
+    # app.run(host, port, debug, options)
+    # запуск локального веб-сервера 127.0.0.1:5000
+    # доступ только с локальной машины
+    # host='0.0.0.0' - позволит принимать запросы с интерфейса, поделюченного к обшедоступной сети
+    # port=8080
+    app.run(debug=True)
