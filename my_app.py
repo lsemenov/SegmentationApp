@@ -7,7 +7,7 @@ from main import preprocess
 import torch
 from PIL import Image
 import os
-
+from memory_profiler import profile
 
 # определили экземпляр класса flask
 app = Flask(__name__)
@@ -50,6 +50,7 @@ def show(filename):
 
 # сделать универсальнее, чтобы люьое из изображений можно было подгружать
 # как пробромсить filename?
+
 @app.route('/segmentation', methods=["POST", "GET"])
 def segmentation():
 
@@ -63,16 +64,20 @@ def segmentation():
 
     # Got 3D input, but bilinear mode needs 4D input
     data = torch.tensor(standardized_scan).to(device).unsqueeze(0).unsqueeze(0).float()
-    #
+
+    del standardized_scan
     with torch.no_grad():
         pred = model(data)
     pred = pred.cpu().numpy()
 
+    del data
     # приводим к 800x800
     img_test = np.array(pred)
+    del pred
     img_test = np.squeeze(img_test)
     path = os.path.join(app.config['UPLOAD_FOLDER'], "segment_" + "0.bmp")
     mpimage.imsave(path, img_test, cmap="Greys")
+    del img_test
     return render_template('segmentation.html', name=path)
 
 
