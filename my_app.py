@@ -7,7 +7,6 @@ from main import preprocess
 import torch
 from PIL import Image
 import os
-from memory_profiler import profile
 
 # определили экземпляр класса flask
 app = Flask(__name__)
